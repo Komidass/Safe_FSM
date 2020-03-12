@@ -11,6 +11,9 @@ CMD_SRCS += \
 LIB_SRCS += \
 C:/ti/Labware/driverlib/ccs/Debug/driverlib.lib 
 
+C_UPPER_SRCS += \
+../FSM.C 
+
 C_SRCS += \
 ../DIO.c \
 ../EEPROM.c \
@@ -18,6 +21,9 @@ C_SRCS += \
 ../LCD.c \
 ../main.c \
 ../tm4c123gh6pm_startup_ccs.c 
+
+C_UPPER_DEPS += \
+./FSM.d 
 
 C_DEPS += \
 ./DIO.d \
@@ -30,6 +36,7 @@ C_DEPS += \
 OBJS += \
 ./DIO.obj \
 ./EEPROM.obj \
+./FSM.obj \
 ./KBD_program.obj \
 ./LCD.obj \
 ./main.obj \
@@ -38,6 +45,7 @@ OBJS += \
 OBJS__QUOTED += \
 "DIO.obj" \
 "EEPROM.obj" \
+"FSM.obj" \
 "KBD_program.obj" \
 "LCD.obj" \
 "main.obj" \
@@ -51,6 +59,9 @@ C_DEPS__QUOTED += \
 "main.d" \
 "tm4c123gh6pm_startup_ccs.d" 
 
+C_UPPER_DEPS__QUOTED += \
+"FSM.d" 
+
 C_SRCS__QUOTED += \
 "../DIO.c" \
 "../EEPROM.c" \
@@ -58,5 +69,8 @@ C_SRCS__QUOTED += \
 "../LCD.c" \
 "../main.c" \
 "../tm4c123gh6pm_startup_ccs.c" 
+
+C_UPPER_SRCS__QUOTED += \
+"../FSM.C" 
 
 

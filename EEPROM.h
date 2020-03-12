@@ -37,8 +37,8 @@
 #define ME 0
 #define KEY 0xE37B
 
-#define LOCKED 1
-#define UNLOCKED 0
+#define EEPROM_LOCKED 1
+#define EEPROM_UNLOCKED 0
 u8 EEPROM_Init(void);
 u8 EEPROM_READ(u32* Read_Data ,u32 Block_Add,u32 Word_Add,u32 Word_Num);
 u8 EEPROM_Write(u32* Write_Data ,u32 Block_Add,u32 Word_Add,u32 Word_Num);
@@ -48,8 +48,11 @@ u8 EEPROM_Unlock(u32* Password);
 void EEPROM_Mass_Erase(void);
 u8 EEPROM_Get_Lock_State(void);
 
-
-
+extern u8 Init_Error;
+extern u8 Set_Password_Error;
+extern u8 Lock_Error;
+extern u8 Unlock_Error;
+extern u8 Lock_State;
 
 
 

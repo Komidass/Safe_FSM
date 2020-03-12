@@ -17,7 +17,8 @@
 #include "KBD_interface.h"
 #include "KBD_private.h"
 
-
+u8 keys[16];
+u8 pressed;
 
 u8 KBD_u8GetKeyPadState(u8* Copy_Au8KeysState/*[KBD_u8_KEYS_NB]*/)
 {

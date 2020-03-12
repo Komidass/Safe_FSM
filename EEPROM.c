@@ -160,8 +160,8 @@ void EEPROM_Mass_Erase(void)
 u8 EEPROM_Get_Lock_State(void)
 {
     EEBLOCK = 0;
-    if(EEUNLOCK == 0) return LOCKED;
-    if(EEUNLOCK == 1) return UNLOCKED;
+    if(EEUNLOCK == 0) return EEPROM_LOCKED;
+    if(EEUNLOCK == 1) return EEPROM_UNLOCKED;
 
 }
 

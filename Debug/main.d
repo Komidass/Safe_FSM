@@ -19,6 +19,7 @@ main.obj: C:/ti/Labware/driverlib/sysctl.h
 main.obj: ../EEPROM.h
 main.obj: ../LCD.h
 main.obj: ../KBD_interface.h
+main.obj: ../FSM.h
 
 ../main.c: 
 ../types.h: 
@@ -39,3 +40,4 @@ C:/ti/Labware/driverlib/sysctl.h:
 ../EEPROM.h: 
 ../LCD.h: 
 ../KBD_interface.h: 
+../FSM.h: 

@@ -28,5 +28,8 @@ u8 KBD_u8GetKeyPadState(u8 Copy_Au8KeysState[KBD_u8_KEYS_NB]);
 void KBD_u8Initialize(u8 group_nb);
 u8 KBD_keys_map(u8* keys);
 
+extern u8 keys[16];
+extern u8 pressed;
+
 
 #endif

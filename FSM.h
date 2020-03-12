@@ -24,7 +24,6 @@ typedef enum
     Enter_Pass_To_Reset,
 } State;
 extern State NextState;
-
 enum Events
 {
     Three_Stars_Pressed,
@@ -34,11 +33,11 @@ enum Events
 
 };
 
-void ReadState(void);
 State Three_Stars_Pressed_Handler(void);
 State Three_Hashes_Pressed_Handler(void);
 State Correct_Password_Handler(void);
 State Incorrect_Password_Handler(void);
+void ReadState(void);
 
 
 #endif /* FSM_H_ */
