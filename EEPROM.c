@@ -6,7 +6,6 @@
 #include <stdint.h>
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
-#include "LCD.h"
 #include "EEPROM.h"
 #include "EEPROM_P.h"
 

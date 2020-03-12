@@ -23,4 +23,22 @@
 u8 KBD_Au8RowsPins[KBD_u8_ROWS];
 
 u8 KBD_Au8ColsPins[KBD_u8_COL];
+u8 key_map[16] = {
+'1',
+'2',
+'3',
+'A',
+'4',
+'5',
+'6',
+'B',
+'7',
+'8',
+'9',
+'C',
+'*',
+'0',
+'#',
+'D'
+};
 #endif

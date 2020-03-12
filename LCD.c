@@ -1,5 +1,5 @@
 #include  "types.h"
-#include  "BIT_MATH.h"
+#include "BIT_MATH.h"
 #include "DIO.h"
 #include  "LCD.h"
 #include <stdbool.h>
@@ -8,49 +8,33 @@
 #include "driverlib/sysctl.h"
 void LCD_SendCommand(u8 Inst) {
 
-
+        u8 i;
         DIO_SetPinValue(RS, LOW);
         DIO_SetPinValue(RW, LOW);
         DIO_SetPinValue(E, HIGH);
-        DIO_SetPinValue(LCD_u8_D0_Pin,GET_BIT(Inst,0));
-        DIO_SetPinValue(LCD_u8_D1_Pin,GET_BIT(Inst,1));
-        DIO_SetPinValue(LCD_u8_D2_Pin,GET_BIT(Inst,2));
-        DIO_SetPinValue(LCD_u8_D3_Pin,GET_BIT(Inst,3));
-        DIO_SetPinValue(LCD_u8_D4_Pin,GET_BIT(Inst,4));
-        DIO_SetPinValue(LCD_u8_D5_Pin,GET_BIT(Inst,5));
-        DIO_SetPinValue(LCD_u8_D6_Pin,GET_BIT(Inst,6));
-        DIO_SetPinValue(LCD_u8_D7_Pin,GET_BIT(Inst,7));
+   //     DIO_SetPortValue(Data_Port, Inst);
+        for(i=0;i<8;i++)
+        {
+            DIO_SetPinValue(Data_0+i, GET_BIT(Inst,i));
+        }
         DIO_SetPinValue(E, LOW);
        // _delay_ms(5);
         SysCtlDelay(16000000 /(3*200));
 
-        DIO_SetPinValue(E, HIGH);
+        DIO_SetPinValue( E, HIGH);
 
 }
 void LCD_SendData(u8 Data)
 {
-    DIO_PinInit(RS);
-    DIO_PinInit(RW);
-    DIO_PinInit(E);
-    DIO_PinInit(LCD_u8_D0_Pin);
-    DIO_PinInit(LCD_u8_D1_Pin);
-    DIO_PinInit(LCD_u8_D2_Pin);
-    DIO_PinInit(LCD_u8_D3_Pin);
-    DIO_PinInit(LCD_u8_D4_Pin);
-    DIO_PinInit(LCD_u8_D5_Pin);
-    DIO_PinInit(LCD_u8_D6_Pin);
-    DIO_PinInit(LCD_u8_D7_Pin);
+    u8 i;
     DIO_SetPinValue(RS, HIGH);
     DIO_SetPinValue(RW, LOW);
     DIO_SetPinValue(E, HIGH);
-    DIO_SetPinValue(LCD_u8_D0_Pin,GET_BIT(Data,0));
-    DIO_SetPinValue(LCD_u8_D1_Pin,GET_BIT(Data,1));
-    DIO_SetPinValue(LCD_u8_D2_Pin,GET_BIT(Data,2));
-    DIO_SetPinValue(LCD_u8_D3_Pin,GET_BIT(Data,3));
-    DIO_SetPinValue(LCD_u8_D4_Pin,GET_BIT(Data,4));
-    DIO_SetPinValue(LCD_u8_D5_Pin,GET_BIT(Data,5));
-    DIO_SetPinValue(LCD_u8_D6_Pin,GET_BIT(Data,6));
-    DIO_SetPinValue(LCD_u8_D7_Pin,GET_BIT(Data,7));
+   // DIO_SetPortValue(Data_Port, Data);
+    for(i=0;i<8;i++)
+    {
+        DIO_SetPinValue(Data_0+i, GET_BIT(Data,i));
+    }
     DIO_SetPinValue(E, LOW);
     //_delay_ms(5);
     SysCtlDelay(16000000 /(3*200));
@@ -146,18 +130,7 @@ void LCD_Init_8BIT(u8 Disp_mode)
     LCD_SendCommand(CLR_DISPLAY);
     SysCtlDelay(16000000 /(3*200));
     LCD_SendCommand(ENTRY_MODE);
-    DIO_SetPinDirection(RS,OUTPUT);
-    DIO_SetPinDirection(RW,OUTPUT);
-    DIO_SetPinDirection(E,OUTPUT);
-    DIO_SetPinDirection(LCD_u8_D0_Pin,OUTPUT);
-    DIO_SetPinDirection(LCD_u8_D1_Pin,OUTPUT);
-    DIO_SetPinDirection(LCD_u8_D2_Pin,OUTPUT);
-    DIO_SetPinDirection(LCD_u8_D3_Pin,OUTPUT);
-    DIO_SetPinDirection(LCD_u8_D4_Pin,OUTPUT);
-    DIO_SetPinDirection(LCD_u8_D5_Pin,OUTPUT);
-    DIO_SetPinDirection(LCD_u8_D6_Pin,OUTPUT);
-    DIO_SetPinDirection(LCD_u8_D7_Pin,OUTPUT);
-    //LCD_SendCommand(CLR_DISPLAY);
+
 }
 
 

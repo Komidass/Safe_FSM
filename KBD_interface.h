@@ -21,17 +21,12 @@
 #define KBD_u8_ACTIVE_ROW		1
 
 #define KBD_u8_CON_PULLDOWN		0
-#define KBD_u8_CON_PULLUP		11
-#define input0 F0
-#define input1 F1
-#define input2 F2
-#define input3 F3
-#define output0 D0
-#define output1 D1
-#define output2 D2
-#define output3 D3
+#define KBD_u8_CON_PULLUP		1
+
+
 u8 KBD_u8GetKeyPadState(u8 Copy_Au8KeysState[KBD_u8_KEYS_NB]);
-void KBD_u8Initialize(void);
+void KBD_u8Initialize(u8 group_nb);
+u8 KBD_keys_map(u8* keys);
 
 
 #endif

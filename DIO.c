@@ -2,9 +2,12 @@
 #include  "BIT_MATH.h"
 #include "DIO.h"
 #include "DIO_REG.h"
+#include <stdbool.h>
+#include <stdint.h>
+#include "inc/hw_types.h"
+#include "driverlib/sysctl.h"
 
-
-volatile u32* DIO_OutRegisters [6] = {GPIO_PORTA_DATA_REG,GPIO_PORTB_DATA_REG,GPIO_PORTC_DATA_REG,GPIO_PORTD_DATA_REG,GPIO_PORTE_DATA_REG ,GPIO_PORTF_DATA_REG};
+volatile u32* DIO_OutRegisters [6] = {GPIO_PORTA_DATA_REG,GPIO_PORTB_DATA_REG,GPIO_PORTC_DATA_REG,GPIO_PORTD_DATA_REG,GPIO_PORTE_DATA_REG , GPIO_PORTF_DATA_REG};
 
 volatile u32* DIO_DirRegisters [6] = {GPIO_PORTA_DIR_REG , GPIO_PORTB_DIR_REG , GPIO_PORTC_DIR_REG , GPIO_PORTD_DIR_REG, GPIO_PORTE_DIR_REG , GPIO_PORTF_DIR_REG};
 
@@ -27,9 +30,25 @@ volatile u32* DIO_Port_Pull_Down [6] = {GPIO_PORTA_PDR_REG , GPIO_PORTB_PDR_REG 
 
 
 void DIO_PortInit (u8 u8PortId){
-
+    u8 i;
     // connect the selected Port to the clock
+    if(u8PortId == PORTD_)
+    {
         SET_BIT(*SYSCTL_RCGCGPIO_REG,u8PortId);
+        *DIO_Lock_Registers[u8PortId] = 0x4C4F434B;
+        for(i =0;i<8;i++)
+        {
+            if(i == 4) continue;
+            SET_BIT(*DIO_Commit_Registers [u8PortId],i);
+            SET_BIT(*DIO_DEN_Registers [u8PortId],i);
+            CLR_BIT(*DIO_Amsel_Registers [u8PortId],i);
+        }
+
+    }
+    else
+    {
+        SET_BIT(*SYSCTL_RCGCGPIO_REG,u8PortId);
+
         // unlock the Port
         *DIO_Lock_Registers[u8PortId] = 0x4C4F434B;
         //commit registers
@@ -38,26 +57,34 @@ void DIO_PortInit (u8 u8PortId){
         *DIO_DEN_Registers[u8PortId] = 0xff;
         // not analog
          *DIO_Amsel_Registers[u8PortId] = 0x00;
+    }
 }
 
-void DIO_PinInit(u8 PinId)
-{
-    u8 PortId = PinId/8;
-    u8 Pin = PinId%8;
-    SET_BIT(*SYSCTL_RCGCGPIO_REG,PortId);
-    SET_BIT(*DIO_Commit_Registers[PortId],Pin);
-    SET_BIT(*DIO_DEN_Registers[PortId],Pin);
-    CLR_BIT(*DIO_Amsel_Registers[PortId],Pin);
-}
 void DIO_SetPortDirection (u8 u8PortId, u8 u8PortDir) {
+u8 i;
+    if(u8PortId == PORTD_)
+    {
+        for(i =0;i<8;i++)
+        {
+            if(i == 4) continue;
+            CLR_BIT(*DIO_AfselRegisters [u8PortId],i);
+            CLR_BIT(*DIO_Port_Control_Registers [u8PortId],i);
 
-    //set the direction
-    *DIO_DirRegisters[u8PortId] = u8PortDir;
-    // alternative selcet for the port
-    *DIO_AfselRegisters[u8PortId] = 0x00;
+        }
+    }
+    else
+    {
+        // alternative selcet for the port
+        *DIO_AfselRegisters[u8PortId] = 0x00;
 
-    // control reg
-    *DIO_Port_Control_Registers[u8PortId] = 0x00;
+        // control reg
+        *DIO_Port_Control_Registers[u8PortId] = 0x00;
+        *DIO_DirRegisters[u8PortId] = u8PortDir;
+
+    }
+
+
+
 
 }
 
@@ -69,51 +96,60 @@ void DIO_SetPortValue (u8 u8PortId, u8 u8PortVal) {
 
 
 
-void DIO_Pull_Pin_Up (u8 PinId){
-    u8 PortId = PinId/8;
-    u8 Pin = PinId%8;
-    SET_BIT(*DIO_Port_Pull_Up[PortId],Pin);
+void DIO_Pull_Pin_Up (u8 Pin){
+
+    u8 u8PortId = Pin/8;
+    u8  u8PinIdCopy = Pin%8;
+    SET_BIT(*DIO_Port_Pull_Up[u8PortId],u8PinIdCopy);
 
 }
 
 
-void DIO_Pull_Pin_Down (u8 PinId){
-    u8 PortId = PinId/8;
-    u8 Pin = PinId%8;
-    SET_BIT(*DIO_Port_Pull_Down[PortId],Pin);
+void DIO_Pull_Pin_Down (u8 Pin){
+
+    u8 u8PortId = Pin/8;
+    u8  u8PinIdCopy = Pin%8;
+    SET_BIT(*DIO_Port_Pull_Down[u8PortId],u8PinIdCopy);
 
 }
 
-void DIO_SetPinDirection (u8 PinId, u8 u8PinDirCopy){
+void DIO_SetPinDirection (u8 Pin, u8 u8PinDirCopy){
 
-    u8 PortId = PinId/8;
-    u8 Pin = PinId%8;
+            u8 u8PortId = Pin/8;
+            u8  u8PinIdCopy = Pin%8;
             if ( u8PinDirCopy == OUTPUT )
                 {
-                SET_BIT(*DIO_DirRegisters[PortId],Pin);
+                SET_BIT(*DIO_DirRegisters[u8PortId],u8PinIdCopy);
                 }
 
             if ( u8PinDirCopy == INPUT )
                 {
-                CLR_BIT(*DIO_DirRegisters[PortId],Pin);
+                CLR_BIT(*DIO_DirRegisters[u8PortId],u8PinIdCopy);
                 }
+
+
 }
 
-void DIO_SetPinValue(u8 PinId,u8 PinValue) {
+void DIO_SetPinValue(u8 Pin, u8 u8PinValCopy) {
 
-u8 PortId = PinId/8;
-u8 Pin = PinId%8;
-if (PinValue == HIGH) SET_BIT(*DIO_OutRegisters [PortId],Pin);
-if (PinValue == LOW) CLR_BIT(*DIO_OutRegisters [PortId],Pin);
+    u8 u8PortIdCopy = Pin/8;
+    u8  u8PinIdCopy = Pin%8;
+    if (u8PinValCopy == HIGH)
+            {
+                SET_BIT(*DIO_OutRegisters[u8PortIdCopy],u8PinIdCopy);
+            }
+
+            else if (u8PinValCopy == LOW)
+            {
+                CLR_BIT(*DIO_OutRegisters[u8PortIdCopy],u8PinIdCopy);
+            }
+
 }
 
-u8 DIO_GetPinValue(u8 PinId)
-{
-    u8 PortId = PinId/8;
-    u8 Pin = PinId%8;
-    u8 u8ResultLocal= GET_BIT(*DIO_OutRegisters[PortId],Pin);
-
-return u8ResultLocal;
-
+u8 DIO_GetPinValue(u8 Pin) {
+    u8 u8PortIdCopy = Pin/8;
+    u8  u8PinIdCopy = Pin%8;
+    u8   u8ResultLocal= GET_BIT(*DIO_OutRegisters[u8PortIdCopy],u8PinIdCopy);
+    return u8ResultLocal;
 }
 

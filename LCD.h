@@ -52,7 +52,7 @@
 #define Col7 0x07
 #define Col8 0x08
 #define Col9 0x09
-#define Col10 0x0A
+#define Col10 0x0A00
 #define Col11 0x0B
 #define Col12 0x0C
 #define Col13 0x0D
@@ -67,19 +67,18 @@ void LCD_GoToXY(u8 Row, u8 Col);
 void LCD_SendStr(u8* ptrStr);
 void LCD_WriteNum(u16 num);
 
-#define Data_Port PORTB_
-#define LCD_u8_D0_Pin B0
-#define LCD_u8_D1_Pin B1
-#define LCD_u8_D2_Pin B2
-#define LCD_u8_D3_Pin B3
-#define LCD_u8_D4_Pin B4
-#define LCD_u8_D5_Pin B5
-#define LCD_u8_D6_Pin B6
-#define LCD_u8_D7_Pin B7
 
+#define Data_0 B0
+#define Data_1 B1
+#define Data_2 B2
+#define Data_3 B3
+#define Data_4 B4
+#define Data_5 B5
+#define Data_6 B6
+#define Data_7 B7
 #define RS E0
 #define RW E1
-#define E  E2
+#define E E2
 
 
 

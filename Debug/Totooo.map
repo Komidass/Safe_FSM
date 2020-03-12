@@ -1,29 +1,32 @@
 ******************************************************************************
                   TI ARM Linker PC v18.12.4                    
 ******************************************************************************
->> Linked Mon Mar  9 15:16:38 2020
+>> Linked Tue Mar 10 00:32:17 2020
 
 OUTPUT FILE NAME:   <Totooo.out>
-ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 000005bd
+ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 00000a95
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00040000  00000602  0003f9fe  R  X
-  SRAM                  20000000   00008000  00000200  00007e00  RW X
+  FLASH                 00000000   00040000  00000c14  0003f3ec  R  X
+  SRAM                  20000000   00008000  00000308  00007cf8  RW X
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00000602   00000602    r-x
+00000000    00000000    00000c18   00000c18    r-x
   00000000    00000000    0000026c   0000026c    r-- .intvecs
-  0000026c    0000026c    00000396   00000396    r-x .text
-20000000    20000000    00000200   00000000    rw-
+  0000026c    0000026c    000008a0   000008a0    r-x .text
+  00000b10    00000b10    00000108   00000108    r-- .cinit
+20000000    20000000    00000308   00000000    rw-
   20000000    20000000    00000200   00000000    rw- .stack
+  20000200    20000200    00000100   00000000    rw- .data
+  20000300    20000300    00000008   00000000    rw- .bss
 
 
 SECTION ALLOCATION MAP
@@ -34,21 +37,47 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    0000026c     
                   00000000    0000026c     tm4c123gh6pm_startup_ccs.obj (.intvecs)
 
-.text      0    0000026c    00000396     
-                  0000026c    0000029c     EEPROM.obj (.text)
-                  00000508    00000050     driverlib.lib : sysctl.obj (.text:SysCtlPeripheralReset)
-                  00000558    00000034                   : sysctl.obj (.text:SysCtlPeripheralEnable)
-                  0000058c    00000030     main.obj (.text)
-                  000005bc    0000002c     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noinit_noargs:_c_int00_noinit_noargs)
-                  000005e8    0000000c     tm4c123gh6pm_startup_ccs.obj (.text)
-                  000005f4    00000006     driverlib.lib : sysctl.obj (.text:SysCtlDelay)
-                  000005fa    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
-                  000005fe    00000004                                   : exit.c.obj (.text:abort:abort)
+.text      0    0000026c    000008a0     
+                  0000026c    000003a0     DIO.obj (.text)
+                  0000060c    000002b0     KBD_program.obj (.text)
+                  000008bc    0000009c     rtsv7M4_T_le_v4SPD16_eabi.lib : memcpy_t2.asm.obj (.text)
+                  00000958    00000090     main.obj (.text)
+                  000009e8    00000068     rtsv7M4_T_le_v4SPD16_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  00000a50    00000044                                   : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit:__TI_auto_init_nobinit_nopinit)
+                  00000a94    00000034                                   : boot_cortex_m.c.obj (.text:_c_int00_noargs:_c_int00_noargs)
+                  00000ac8    0000001c                                   : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset:__TI_zero_init_nomemset)
+                  00000ae4    0000000e                                   : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  00000af2    0000000c     tm4c123gh6pm_startup_ccs.obj (.text)
+                  00000afe    00000006     driverlib.lib : sysctl.obj (.text:SysCtlDelay)
+                  00000b04    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
+                  00000b08    00000004                                   : exit.c.obj (.text:abort:abort)
 
-.cinit     0    00000000    00000000     UNINITIALIZED
+.cinit     0    00000b10    00000108     
+                  00000b10    000000e0     (.cinit..data.load) [load image, compression = lzss]
+                  00000bf0    0000000c     (__TI_handler_table)
+                  00000bfc    00000004     --HOLE-- [fill = 0]
+                  00000c00    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  00000c08    00000010     (__TI_cinit_table)
 
 .init_array 
 *          0    00000000    00000000     UNINITIALIZED
+
+.data      0    20000200    00000100     UNINITIALIZED
+                  20000200    00000018     DIO.obj (.data:DIO_AfselRegisters)
+                  20000218    00000018     DIO.obj (.data:DIO_Amsel_Registers)
+                  20000230    00000018     DIO.obj (.data:DIO_Commit_Registers)
+                  20000248    00000018     DIO.obj (.data:DIO_DEN_Registers)
+                  20000260    00000018     DIO.obj (.data:DIO_DirRegisters)
+                  20000278    00000018     DIO.obj (.data:DIO_Lock_Registers)
+                  20000290    00000018     DIO.obj (.data:DIO_OutRegisters)
+                  200002a8    00000018     DIO.obj (.data:DIO_Port_Control_Registers)
+                  200002c0    00000018     DIO.obj (.data:DIO_Port_Pull_Down)
+                  200002d8    00000018     DIO.obj (.data:DIO_Port_Pull_Up)
+                  200002f0    00000010     KBD_program.obj (.data:key_map)
+
+.bss       0    20000300    00000008     UNINITIALIZED
+                  20000300    00000004     (.common:KBD_Au8ColsPins)
+                  20000304    00000004     (.common:KBD_Au8RowsPins)
 
 .stack     0    20000000    00000200     UNINITIALIZED
                   20000000    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.stack)
@@ -59,98 +88,174 @@ MODULE SUMMARY
        Module                         code   ro data   rw data
        ------                         ----   -------   -------
     .\
-       EEPROM.obj                     668    0         0      
+       DIO.obj                        928    0         240    
+       KBD_program.obj                688    0         24     
        tm4c123gh6pm_startup_ccs.obj   12     620       0      
-       main.obj                       48     0         0      
+       main.obj                       144    0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         728    620       0      
+       Total:                         1772   620       264    
                                                               
     C:/ti/Labware/driverlib/ccs/Debug/driverlib.lib
-       sysctl.obj                     138    0         0      
+       sysctl.obj                     6      0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         138    0         0      
+       Total:                         6      0         0      
                                                               
     C:\ti\ccs930\ccs\tools\compiler\ti-cgt-arm_18.12.4.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
-       boot_cortex_m.c.obj            44     0         0      
+       memcpy_t2.asm.obj              156    0         0      
+       copy_decompress_lzss.c.obj     104    0         0      
+       autoinit.c.obj                 68     0         0      
+       boot_cortex_m.c.obj            52     0         0      
+       copy_zero_init.c.obj           28     0         0      
+       copy_decompress_none.c.obj     14     0         0      
        exit.c.obj                     4      0         0      
        pre_init.c.obj                 4      0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         52     0         0      
+       Total:                         430    0         0      
                                                               
        Stack:                         0      0         512    
+       Linker Generated:              0      260       0      
     +--+------------------------------+------+---------+---------+
-       Grand Total:                   918    620       512    
+       Grand Total:                   2208   880       776    
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 00000c08 records: 2, size/record: 8, table size: 16
+	.data: load addr=00000b10, load size=000000e0 bytes, run addr=20000200, run size=00000100 bytes, compression=lzss
+	.bss: load addr=00000c00, load size=00000008 bytes, run addr=20000300, run size=00000008 bytes, compression=zero_init
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 00000bf0 records: 3, size/record: 4, table size: 12
+	index: 0, handler: __TI_decompress_lzss
+	index: 1, handler: __TI_decompress_none
+	index: 2, handler: __TI_zero_init
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
 
-address   name                  
--------   ----                  
-000005ff  C$$EXIT               
-000004c3  EEPROM_Get_Lock_State 
-0000026d  EEPROM_Init           
-00000419  EEPROM_Lock           
-00000495  EEPROM_Mass_Erase     
-000002c7  EEPROM_READ           
-000003d3  EEPROM_Set_Password   
-0000044b  EEPROM_Unlock         
-00000349  EEPROM_Write          
-000005e9  ResetISR              
-000005f5  SysCtlDelay           
-00000559  SysCtlPeripheralEnable
-00000509  SysCtlPeripheralReset 
-20000200  __STACK_END           
-00000200  __STACK_SIZE          
-20000200  __STACK_TOP           
-ffffffff  __TI_pprof_out_hndl   
-ffffffff  __TI_prof_data_size   
-ffffffff  __TI_prof_data_start  
-00000000  __TI_static_base__    
-ffffffff  __binit__             
-ffffffff  __c_args__            
-UNDEFED   __mpu_init            
-20000000  __stack               
-000005bd  _c_int00_noinit_noargs
-000005fb  _system_pre_init      
-000005ff  abort                 
-ffffffff  binit                 
-00000000  g_pfnVectors          
-0000058d  main                  
+address   name                          
+-------   ----                          
+00000b09  C$$EXIT                       
+20000200  DIO_AfselRegisters            
+20000218  DIO_Amsel_Registers           
+20000230  DIO_Commit_Registers          
+20000248  DIO_DEN_Registers             
+20000260  DIO_DirRegisters              
+0000058d  DIO_GetPinValue               
+20000278  DIO_Lock_Registers            
+20000290  DIO_OutRegisters              
+0000026d  DIO_PortInit                  
+200002a8  DIO_Port_Control_Registers    
+200002c0  DIO_Port_Pull_Down            
+200002d8  DIO_Port_Pull_Up              
+0000045f  DIO_Pull_Pin_Down             
+00000417  DIO_Pull_Pin_Up               
+000004a7  DIO_SetPinDirection           
+00000519  DIO_SetPinValue               
+00000359  DIO_SetPortDirection          
+000003f7  DIO_SetPortValue              
+20000300  KBD_Au8ColsPins               
+20000304  KBD_Au8RowsPins               
+0000086d  KBD_keys_map                  
+0000060d  KBD_u8GetKeyPadState          
+000006c5  KBD_u8Initialize              
+00000af3  ResetISR                      
+00000aff  SysCtlDelay                   
+20000200  __STACK_END                   
+00000200  __STACK_SIZE                  
+20000200  __STACK_TOP                   
+00000c08  __TI_CINIT_Base               
+00000c18  __TI_CINIT_Limit              
+00000bf0  __TI_Handler_Table_Base       
+00000bfc  __TI_Handler_Table_Limit      
+00000a51  __TI_auto_init_nobinit_nopinit
+000009e9  __TI_decompress_lzss          
+00000ae5  __TI_decompress_none          
+ffffffff  __TI_pprof_out_hndl           
+ffffffff  __TI_prof_data_size           
+ffffffff  __TI_prof_data_start          
+00000000  __TI_static_base__            
+00000ac9  __TI_zero_init_nomemset       
+000008bd  __aeabi_memcpy                
+000008bd  __aeabi_memcpy4               
+000008bd  __aeabi_memcpy8               
+ffffffff  __binit__                     
+ffffffff  __c_args__                    
+UNDEFED   __mpu_init                    
+20000000  __stack                       
+00000a95  _c_int00_noargs               
+UNDEFED   _system_post_cinit            
+00000b05  _system_pre_init              
+00000b09  abort                         
+ffffffff  binit                         
+00000000  g_pfnVectors                  
+200002f0  key_map                       
+00000959  main                          
+000008bd  memcpy                        
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
 
-address   name                  
--------   ----                  
-00000000  __TI_static_base__    
-00000000  g_pfnVectors          
-00000200  __STACK_SIZE          
-0000026d  EEPROM_Init           
-000002c7  EEPROM_READ           
-00000349  EEPROM_Write          
-000003d3  EEPROM_Set_Password   
-00000419  EEPROM_Lock           
-0000044b  EEPROM_Unlock         
-00000495  EEPROM_Mass_Erase     
-000004c3  EEPROM_Get_Lock_State 
-00000509  SysCtlPeripheralReset 
-00000559  SysCtlPeripheralEnable
-0000058d  main                  
-000005bd  _c_int00_noinit_noargs
-000005e9  ResetISR              
-000005f5  SysCtlDelay           
-000005fb  _system_pre_init      
-000005ff  C$$EXIT               
-000005ff  abort                 
-20000000  __stack               
-20000200  __STACK_END           
-20000200  __STACK_TOP           
-ffffffff  __TI_pprof_out_hndl   
-ffffffff  __TI_prof_data_size   
-ffffffff  __TI_prof_data_start  
-ffffffff  __binit__             
-ffffffff  __c_args__            
-ffffffff  binit                 
-UNDEFED   __mpu_init            
+address   name                          
+-------   ----                          
+00000000  __TI_static_base__            
+00000000  g_pfnVectors                  
+00000200  __STACK_SIZE                  
+0000026d  DIO_PortInit                  
+00000359  DIO_SetPortDirection          
+000003f7  DIO_SetPortValue              
+00000417  DIO_Pull_Pin_Up               
+0000045f  DIO_Pull_Pin_Down             
+000004a7  DIO_SetPinDirection           
+00000519  DIO_SetPinValue               
+0000058d  DIO_GetPinValue               
+0000060d  KBD_u8GetKeyPadState          
+000006c5  KBD_u8Initialize              
+0000086d  KBD_keys_map                  
+000008bd  __aeabi_memcpy                
+000008bd  __aeabi_memcpy4               
+000008bd  __aeabi_memcpy8               
+000008bd  memcpy                        
+00000959  main                          
+000009e9  __TI_decompress_lzss          
+00000a51  __TI_auto_init_nobinit_nopinit
+00000a95  _c_int00_noargs               
+00000ac9  __TI_zero_init_nomemset       
+00000ae5  __TI_decompress_none          
+00000af3  ResetISR                      
+00000aff  SysCtlDelay                   
+00000b05  _system_pre_init              
+00000b09  C$$EXIT                       
+00000b09  abort                         
+00000bf0  __TI_Handler_Table_Base       
+00000bfc  __TI_Handler_Table_Limit      
+00000c08  __TI_CINIT_Base               
+00000c18  __TI_CINIT_Limit              
+20000000  __stack                       
+20000200  DIO_AfselRegisters            
+20000200  __STACK_END                   
+20000200  __STACK_TOP                   
+20000218  DIO_Amsel_Registers           
+20000230  DIO_Commit_Registers          
+20000248  DIO_DEN_Registers             
+20000260  DIO_DirRegisters              
+20000278  DIO_Lock_Registers            
+20000290  DIO_OutRegisters              
+200002a8  DIO_Port_Control_Registers    
+200002c0  DIO_Port_Pull_Down            
+200002d8  DIO_Port_Pull_Up              
+200002f0  key_map                       
+20000300  KBD_Au8ColsPins               
+20000304  KBD_Au8RowsPins               
+ffffffff  __TI_pprof_out_hndl           
+ffffffff  __TI_prof_data_size           
+ffffffff  __TI_prof_data_start          
+ffffffff  __binit__                     
+ffffffff  __c_args__                    
+ffffffff  binit                         
+UNDEFED   __mpu_init                    
+UNDEFED   _system_post_cinit            
 
-[30 symbols]
+[57 symbols]

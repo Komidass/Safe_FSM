@@ -16,7 +16,6 @@ EEPROM.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/machi
 EEPROM.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/sys/_stdint.h
 EEPROM.obj: C:/ti/Labware/inc/hw_types.h
 EEPROM.obj: C:/ti/Labware/driverlib/sysctl.h
-EEPROM.obj: ../LCD.h
 EEPROM.obj: ../EEPROM.h
 EEPROM.obj: ../EEPROM_P.h
 
@@ -36,6 +35,5 @@ C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/machine/_stdint.h
 C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/sys/_stdint.h: 
 C:/ti/Labware/inc/hw_types.h: 
 C:/ti/Labware/driverlib/sysctl.h: 
-../LCD.h: 
 ../EEPROM.h: 
 ../EEPROM_P.h: 

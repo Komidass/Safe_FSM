@@ -16,8 +16,8 @@ main.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/machine
 main.obj: C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/sys/_stdint.h
 main.obj: C:/ti/Labware/inc/hw_types.h
 main.obj: C:/ti/Labware/driverlib/sysctl.h
-main.obj: ../LCD.h
 main.obj: ../EEPROM.h
+main.obj: ../LCD.h
 main.obj: ../KBD_interface.h
 
 ../main.c: 
@@ -36,6 +36,6 @@ C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/machine/_stdint.h
 C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/sys/_stdint.h: 
 C:/ti/Labware/inc/hw_types.h: 
 C:/ti/Labware/driverlib/sysctl.h: 
-../LCD.h: 
 ../EEPROM.h: 
+../LCD.h: 
 ../KBD_interface.h: 
