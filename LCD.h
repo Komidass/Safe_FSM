@@ -68,17 +68,19 @@ void LCD_SendStr(u8* ptrStr);
 void LCD_WriteNum(u16 num);
 
 
-#define Data_0 B0
-#define Data_1 B1
-#define Data_2 B2
-#define Data_3 B3
-#define Data_4 B4
-#define Data_5 B5
-#define Data_6 B6
-#define Data_7 B7
-#define RS E0
-#define RW E1
-#define E E2
+#define Data_0 E0
+#define Data_1 E1
+#define Data_2 E2
+#define Data_3 E3
+#define Data_4 E4
+#define Data_5 E5
+#define Data_6 A3
+#define Data_7 A4
+#define RS A5
+#define RW A6
+#define E A7
+
+
 
 
 

@@ -30,23 +30,7 @@ volatile u32* DIO_Port_Pull_Down [6] = {GPIO_PORTA_PDR_REG , GPIO_PORTB_PDR_REG 
 
 
 void DIO_PortInit (u8 u8PortId){
-    u8 i;
-    // connect the selected Port to the clock
-    if(u8PortId == PORTD_)
-    {
-        SET_BIT(*SYSCTL_RCGCGPIO_REG,u8PortId);
-        *DIO_Lock_Registers[u8PortId] = 0x4C4F434B;
-        for(i =0;i<8;i++)
-        {
-            if(i == 4) continue;
-            SET_BIT(*DIO_Commit_Registers [u8PortId],i);
-            SET_BIT(*DIO_DEN_Registers [u8PortId],i);
-            CLR_BIT(*DIO_Amsel_Registers [u8PortId],i);
-        }
 
-    }
-    else
-    {
         SET_BIT(*SYSCTL_RCGCGPIO_REG,u8PortId);
 
         // unlock the Port
@@ -57,23 +41,11 @@ void DIO_PortInit (u8 u8PortId){
         *DIO_DEN_Registers[u8PortId] = 0xff;
         // not analog
          *DIO_Amsel_Registers[u8PortId] = 0x00;
-    }
+
 }
 
 void DIO_SetPortDirection (u8 u8PortId, u8 u8PortDir) {
-u8 i;
-    if(u8PortId == PORTD_)
-    {
-        for(i =0;i<8;i++)
-        {
-            if(i == 4) continue;
-            CLR_BIT(*DIO_AfselRegisters [u8PortId],i);
-            CLR_BIT(*DIO_Port_Control_Registers [u8PortId],i);
 
-        }
-    }
-    else
-    {
         // alternative selcet for the port
         *DIO_AfselRegisters[u8PortId] = 0x00;
 
@@ -81,7 +53,7 @@ u8 i;
         *DIO_Port_Control_Registers[u8PortId] = 0x00;
         *DIO_DirRegisters[u8PortId] = u8PortDir;
 
-    }
+
 
 
 
