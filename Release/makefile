@@ -2,28 +2,29 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL = cmd.exe
-
-CG_TOOL_ROOT := C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS
+CG_TOOL_ROOT := /home/tho/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
 "./DIO.obj" \
+"./EEPROM.obj" \
+"./FSM.obj" \
+"./FSM_1.obj" \
+"./KBD_program.obj" \
 "./LCD.obj" \
 "./main.obj" \
 "./tm4c123gh6pm_startup_ccs.obj" \
-"C:/ti/Labware/driverlib/ccs/Debug/driverlib.lib" \
+"/home/tho/ti/TivaWare_C_Series-2.1.4.178/driverlib/ccs/Debug/driverlib.lib" \
 "../tm4c123gh6pm.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
--l"C:/ti/Labware/driverlib/ccs/Debug/driverlib.lib" \
 
 -include ../makefile.init
 
-RM := DEL /F
-RMDIR := RMDIR /S/Q
+RM := rm -rf
+RMDIR := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -125,42 +126,43 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-Totooo.out \
+TMGP.out \
 
 EXE_OUTPUTS__QUOTED += \
-"Totooo.out" \
+"TMGP.out" \
 
 BIN_OUTPUTS += \
-Totooo.hex \
+TMGP.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"Totooo.hex" \
+"TMGP.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "Totooo.out"
+	@$(MAKE) --no-print-directory -Onone "TMGP.out"
 
 # Tool invocations
-Totooo.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
+TMGP.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --define=ccs="ccs" --define=PART_TM4C123GH6PM --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"Totooo.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Totooo_linkInfo.xml" --rom_model -o "Totooo.out" $(ORDERED_OBJS)
+	"/home/tho/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --define=ccs="ccs" --define=PART_TM4C123GH6PM --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"TMGP.map" --heap_size=0 --stack_size=512 -i"/home/tho/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"/home/tho/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="TMGP_linkInfo.xml" --rom_model -o "TMGP.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-Totooo.hex: $(EXE_OUTPUTS)
+TMGP.hex: $(EXE_OUTPUTS)
 	@echo 'Building files: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo 'Invoking: ARM Hex Utility'
-	"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armhex"  -o "Totooo.hex" $(EXE_OUTPUTS__QUOTED)
+	"/home/tho/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armhex"  -o "TMGP.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building: $(strip $(EXE_OUTPUTS__QUOTED))'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "DIO.obj" "LCD.obj" "main.obj" "tm4c123gh6pm_startup_ccs.obj" 
-	-$(RM) "DIO.d" "LCD.d" "main.d" "tm4c123gh6pm_startup_ccs.d" 
+	-$(RM) "DIO.obj" "EEPROM.obj" "FSM.obj" "FSM_1.obj" "KBD_program.obj" "LCD.obj" "main.obj" "tm4c123gh6pm_startup_ccs.obj" 
+	-$(RM) "DIO.d" "EEPROM.d" "FSM_1.d" "KBD_program.d" "LCD.d" "main.d" "tm4c123gh6pm_startup_ccs.d" 
+	-$(RM) "FSM.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
