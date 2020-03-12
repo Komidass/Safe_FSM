@@ -101,8 +101,8 @@ u8 EEPROM_Write(u32* Write_Data ,u32 Block_Add,u32 Word_Add,u32 Word_Num)
 
 u8 EEPROM_Set_Password(u32* Password)
 {
-    EEBLOCK = 0;
-    if(EEBLOCK != 0) return Write_Error;
+    EEBLOCK = 1;
+    if(EEBLOCK != 1) return Write_Error;
 
    //
     if(GET_BIT(EEDONE,NOPERM) == 1)  return Write_Error;
@@ -118,8 +118,8 @@ u8 EEPROM_Set_Password(u32* Password)
 
 u8 EEPROM_Lock(void)
 {
-    EEBLOCK = 0;
-    if(EEBLOCK != 0) return Write_Error;
+    EEBLOCK = 1;
+    if(EEBLOCK != 1) return Write_Error;
     EEUNLOCK = 0xffffffff;
     if (EEUNLOCK == 1) return Write_Error;
     if (EEUNLOCK == 0) return NO_ERROR;
@@ -128,8 +128,8 @@ u8 EEPROM_Lock(void)
 
 u8 EEPROM_Unlock(u32* Password)
 {
-    EEBLOCK = 0;
-    if(EEBLOCK != 0) return Write_Error;
+    EEBLOCK = 1;
+    if(EEBLOCK != 1) return Write_Error;
 
     EEUNLOCK = 0xffffffff;
     EEUNLOCK = *Password;
@@ -159,7 +159,7 @@ void EEPROM_Mass_Erase(void)
 }
 u8 EEPROM_Get_Lock_State(void)
 {
-    EEBLOCK = 0;
+    EEBLOCK = 1;
     if(EEUNLOCK == 0) return EEPROM_LOCKED;
     if(EEUNLOCK == 1) return EEPROM_UNLOCKED;
 

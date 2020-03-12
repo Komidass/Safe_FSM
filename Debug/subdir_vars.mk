@@ -2,14 +2,12 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL = cmd.exe
-
 # Add inputs and outputs from these tool invocations to the build variables 
 CMD_SRCS += \
 ../tm4c123gh6pm.cmd 
 
 LIB_SRCS += \
-C:/ti/Labware/driverlib/ccs/Debug/driverlib.lib 
+/home/tho/ti/TivaWare_C_Series-2.1.4.178/driverlib/ccs/Debug/driverlib.lib 
 
 C_UPPER_SRCS += \
 ../FSM.C 
@@ -17,6 +15,7 @@ C_UPPER_SRCS += \
 C_SRCS += \
 ../DIO.c \
 ../EEPROM.c \
+../FSM_1.c \
 ../KBD_program.c \
 ../LCD.c \
 ../main.c \
@@ -28,6 +27,7 @@ C_UPPER_DEPS += \
 C_DEPS += \
 ./DIO.d \
 ./EEPROM.d \
+./FSM_1.d \
 ./KBD_program.d \
 ./LCD.d \
 ./main.d \
@@ -37,6 +37,7 @@ OBJS += \
 ./DIO.obj \
 ./EEPROM.obj \
 ./FSM.obj \
+./FSM_1.obj \
 ./KBD_program.obj \
 ./LCD.obj \
 ./main.obj \
@@ -46,6 +47,7 @@ OBJS__QUOTED += \
 "DIO.obj" \
 "EEPROM.obj" \
 "FSM.obj" \
+"FSM_1.obj" \
 "KBD_program.obj" \
 "LCD.obj" \
 "main.obj" \
@@ -54,6 +56,7 @@ OBJS__QUOTED += \
 C_DEPS__QUOTED += \
 "DIO.d" \
 "EEPROM.d" \
+"FSM_1.d" \
 "KBD_program.d" \
 "LCD.d" \
 "main.d" \
@@ -65,6 +68,7 @@ C_UPPER_DEPS__QUOTED += \
 C_SRCS__QUOTED += \
 "../DIO.c" \
 "../EEPROM.c" \
+"../FSM_1.c" \
 "../KBD_program.c" \
 "../LCD.c" \
 "../main.c" \

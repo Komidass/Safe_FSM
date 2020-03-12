@@ -85,6 +85,7 @@ void LCD_SendStr(u8* ptrStr)
     u8 i;
     for(i=0; ptrStr[i] != '\0'; i++)
     {
+        if(i == 16) LCD_GoToXY(1,0);
         LCD_SendData(ptrStr[i]);
     }
 }
